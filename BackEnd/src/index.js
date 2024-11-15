@@ -2,6 +2,28 @@ import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { logger } from 'hono/logger'
 import { CognitoJwtVerifier } from "aws-jwt-verify";
+import pg from 'pg'
+
+const { Client } = pg
+const client = new Client({connectionString: process.env.CONNECTION_STRING})
+await client.connect()
+
+await client.query(`
+  CREATE TABLE IF NOT EXISTS myusers (
+    sub UUID PRIMARY KEY NOT NULL,
+    username TEXT NOT NULL
+  )`)
+
+await client.query(
+  `CREATE TABLE IF NOT EXISTS mymessages (
+    id UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
+    message TEXT NOT NULL,
+    sender UUID NOT NULL REFERENCES myusers(sub),
+    receiver UUID NOT NULL REFERENCES myusers(sub),
+    date TIMESTAMP NOT NULL DEFAULT NOW()
+  )`
+)
+
 
 const verifier = CognitoJwtVerifier.create({
   userPoolId: process.env.COGNITO_POOL_ID,
