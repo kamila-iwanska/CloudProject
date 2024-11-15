@@ -1,0 +1,7 @@
+services:
+  frontend:
+    build: ./FrontEnd
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_COGNITO_CLIENT_ID: ${COGNITO_CLIENT_ID}

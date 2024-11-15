@@ -15,11 +15,11 @@ export function Login({ setPage, setAccessToken }) {
           .then((result) => {
             console.log(result);
             setAccessToken(result.AuthenticationResult.AccessToken);
+            setPage('chat');
           })
           .catch((error) => {
             window.alert(error.message);
           });
-        setPage('chat');
       }}>
         <label htmlFor="username">Username</label><br />
         <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} /><br />
