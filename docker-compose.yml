@@ -5,3 +5,10 @@ services:
       - "5173:5173"
     environment:
       VITE_COGNITO_CLIENT_ID: ${COGNITO_CLIENT_ID}
+  backend:
+    build: ./BackEnd
+    ports:
+      - "3000:3000"
+    environment:
+      COGNITO_CLIENT_ID: ${COGNITO_CLIENT_ID}
+      COGNITO_POOL_ID: ${COGNITO_POOL_ID}
