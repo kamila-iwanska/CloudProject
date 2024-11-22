@@ -3,8 +3,12 @@ import { Hono } from 'hono'
 import { logger } from 'hono/logger'
 import { extractUser } from './cognito.js'
 import {addMessageToDB, getUsersFromDB, getMessagesFromDB} from './database.js'
+import { cors } from 'hono/cors'
 
 const app = new Hono()
+
+app.use(cors())
+
 app.use(logger())
 
 app.get('/', (c) => {

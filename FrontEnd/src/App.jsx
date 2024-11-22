@@ -11,7 +11,7 @@ export function App() {
     <>
       {page === "login" ? <Login setPage={setPage} setAccessToken={setAccessToken} /> : null} 
       {page === "sign-up" ? <SignUp setPage={setPage} /> : null}
-      {page === "chat" ? <Chat /> : null}
+      {page === "chat" ? <Chat  setPage={setPage} accessToken={accessToken}/> : null}
     </>
   )
 }
