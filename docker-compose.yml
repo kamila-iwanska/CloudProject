@@ -5,6 +5,7 @@ services:
       - "5173:5173"
     environment:
       VITE_COGNITO_CLIENT_ID: ${COGNITO_CLIENT_ID}
+      VITE_BACKEND_URL: "http://localhost:3000"
   backend:
     build: ./BackEnd
     ports:

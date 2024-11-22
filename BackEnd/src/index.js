@@ -43,8 +43,8 @@ app.post('/messages', async (c) => {
   try {
     const body = await c.req.json()
     const { message, receiver } = body
-    await addMessageToDB(message, user.sub, receiver)
-    return c.json({ status: 'ok' })
+    const result = await addMessageToDB(message, user.sub, receiver)
+    return c.json( result )
   }
   catch {
     return c.status(400).json({ error: 'Invalid JSON' })

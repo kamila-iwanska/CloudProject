@@ -32,8 +32,9 @@ export async function addUserToDB(sub, username) {
 }
 
 export async function addMessageToDB(message, sender, receiver) {
-  await client.query('INSERT INTO mymessages (message, sender, receiver) VALUES ($1, $2, $3)', [message, sender, receiver])
+  const result = await client.query('INSERT INTO mymessages (message, sender, receiver) VALUES ($1, $2, $3) RETURNING *', [message, sender, receiver])
   console.log(`Added message from ${sender} to ${receiver}: ${message}`)
+  return result.rows[0]
 }
 
 export async function getMessagesFromDB(user, other) {

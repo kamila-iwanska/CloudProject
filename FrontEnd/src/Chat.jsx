@@ -1,26 +1,33 @@
 import { useState, useEffect } from 'react'
-import { APIget } from './API.js'
+import { APIget, APIpost } from './API.js'
 
 export function Chat({ setPage, accessToken}) {
-  // const user1 = { sub: '1', username: 'alice1'}
-  // const user2 = { sub: '2', username: 'alice2'}
-  // const user3 = { sub: '3', username: 'alice3'}
-  //const users = [user1, user2, user3]
   const [users, setUsers] = useState([]);
+  const [selectedUserSub, setSelectedUserSub] = useState(null);
+  const[messages, setMessages] = useState([]);
+  const[newMessage, setNewMessage] = useState('');
+
   useEffect(() => {APIget('/users', accessToken).then((data) => {setUsers(data)})}, []); 
-  // const messages = [
-  //   { message: 'Hello!', sender: user1.sub, receiver: user2.sub },
-  //   { message: 'Hi!', sender: user2.sub, receiver: user1.sub },
-  //   { message: 'How are you?', sender: user1.sub, receiver: user2.sub },
-  //   { message: 'Good, you?', sender: user2.sub, receiver: user1.sub },
-  //   { message: 'I am fine!', sender: user1.sub, receiver: user2.sub },
-  //   { message: 'Great!', sender: user2.sub, receiver: user1.sub },
-  // ]
+
   const listUsers = users.map(user =>
-    <li key={user.sub}>
+    <li key={user.sub} onClick={() => setSelectedUserSub(user.sub)} style={user.sub==selectedUserSub ? {color: 'red'}:null}>
       {user.username}
     </li>
   );
+  
+  useEffect(() =>{
+    if (selectedUserSub !=null){
+      APIget('/messages/' + selectedUserSub, accessToken).then((data) => {setMessages(data)})
+    }
+  }, [selectedUserSub]);
+    
+  const listMessages = messages.map(message =>
+    <li key={message.id}>
+      {message.sender} <br/>
+      {message.message}
+    </li>
+  )
+
   return(
     <>
       <div>
@@ -29,8 +36,16 @@ export function Chat({ setPage, accessToken}) {
       </div>
       <div>
         <h1>Chat</h1>
-        <p>Welcome to the chat!</p>
+        <ul>{listMessages}</ul>
       </div>
+      <input type="text" placeholder='Message' value = {newMessage} onChange={(e)=>setNewMessage(e.target.value)}/>
+      <button disabled = {selectedUserSub == null} onClick={() => {
+        APIpost('/messages', accessToken, {receiver: selectedUserSub, message: newMessage}).then((result) => {
+          setMessages([...messages, result]);
+          setNewMessage('');
+        }
+      )
+      }}>Send</button>< br/>
       <button onClick={() => setPage('login')}>Log out</button>
     </>
 )
