@@ -11,7 +11,7 @@ export function Chat({ setPage, accessToken }) {
   useEffect(() => { APIget('/users', accessToken).then((data) => { setUsers(data) }) }, []);
 
   const listUsers = users.map(user =>
-    <p className= "user-panel" key={user.sub} onClick={() => setSelectedUserSub(user.sub)} style={user.sub == selectedUserSub ? { backgroundColor: 'pink' } : null}>
+    <p className= "user-panel" key={user.sub} onClick={() => {setMessages([]); setSelectedUserSub(user.sub)}} style={user.sub == selectedUserSub ? { backgroundColor: 'pink' } : null}>
       {user.username}
     </p>
   );
