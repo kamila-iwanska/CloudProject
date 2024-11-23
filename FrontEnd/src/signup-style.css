@@ -1,0 +1,65 @@
+.signup-page {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.signup-page .signup-form-container{
+    background-color: #865da746;
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.signup-page h1{
+    text-align: center;
+    color: #555;
+}
+.signup-page label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color:#555;
+    text-align: left;
+}
+.signup-page input[type="text"], .signup-page input[type="email"], .signup-page input[type="password"]{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border : 1px solid #ccc;
+    box-sizing: border-box;
+}
+.signup-page button[type="submit"]{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    background-color: #865da746;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+.signup-page button[type="submit"]:hover{
+    background-color: #865da79d;
+}
+.signup-page .login-btn{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    background-color: white;
+    color: #865da7;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.signup-page .login-btn:hover{
+    background-color: #faebff;
+}
