@@ -20,6 +20,12 @@ export function Chat({ setPage, accessToken }) {
     if (selectedUserSub != null) {
       APIget('/messages/' + selectedUserSub, accessToken).then((data) => { setMessages(data) })
     }
+    const intervalID = setInterval(() => {
+      if (selectedUserSub != null) {
+        APIget('/messages/' + selectedUserSub, accessToken).then((data) => { setMessages(data) })
+      }
+    }, 1000)
+    return () => clearInterval(intervalID);
   }, [selectedUserSub]);
 
   const listMessages = messages.map(message =>
