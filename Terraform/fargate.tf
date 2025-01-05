@@ -40,8 +40,12 @@ module "backend-service"{
             value = "postgresql://${aws_db_instance.chmurki_rds.endpoint}/chmurki_db?user=kamila1&password=jamniczek"
        },
        { 
-            name = "MESSAGE_TO_LAMBDA_QUEUE_URL"
+            name = "FROM_BACKEND_TO_LAMBDA_QUEUE_URL"
             value = "${aws_sqs_queue.terraform-backend-lambda-queue.url}"
+       },
+       {
+            name = "FROM_LAMBDA_TO_BACKEND_QUEUE_URL"
+            value = "${aws_sqs_queue.terraform-lambda-backend-queue.url}"
        }
     ]
     cluster_id = aws_ecs_cluster.chmurki_cluster.id

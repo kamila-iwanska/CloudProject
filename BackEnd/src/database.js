@@ -41,3 +41,8 @@ export async function getMessagesFromDB(user, other) {
   const result = await client.query('SELECT * FROM mymessages WHERE (sender = $1 AND receiver = $2) OR (sender = $2 AND receiver = $1) ORDER BY date', [user, other])
   return result.rows
 }
+
+export async function getAdminFromDB(){
+  const result = await client. query ( "SELECT sub FROM myusers WHERE username = 'admin'")
+  return result.rows[0].sub
+}

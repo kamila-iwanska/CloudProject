@@ -33,7 +33,7 @@ resource "aws_lambda_function" "terraform-backend-lambda" {
 
     environment {
         variables = {
-            TO_ADMIN_QUEUE_URL = aws_sqs_queue.terraform-lambda-backend-queue.url
+            FROM_LAMBDA_TO_BACKEND_QUEUE_URL = aws_sqs_queue.terraform-lambda-backend-queue.url
         }
     }
 }   

@@ -10,7 +10,7 @@ export async function handler(event) {
   if (/[0-9]/.test(message)) {
     console.log("Message contains a number");
     const client = new SQSClient({ region: "us-east-1" });
-    await client.send(new SendMessageCommand({QueueUrl: process.env.TO_ADMIN_QUEUE_URL,  MessageBody: JSON.stringify(body)}))
+    await client.send(new SendMessageCommand({QueueUrl: process.env.FROM_LAMBDA_TO_BACKEND_QUEUE_URL,  MessageBody: JSON.stringify(body)}))
   }
   return event;
 }

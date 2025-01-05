@@ -45,7 +45,7 @@ app.post('/messages', async (c) => {
     const body = await c.req.json()
     const { message, receiver } = body
     const result = await addMessageToDB(message, user.sub, receiver)
-    await sendMessagesToQueue(process.env.MESSAGE_TO_LAMBDA_QUEUE_URL, {message, sender: user.sub, receiver})
+    await sendMessagesToQueue(process.env.FROM_BACKEND_TO_LAMBDA_QUEUE_URL, {message, sender: user.sub, receiver})
 
     return c.json( result )
   }
