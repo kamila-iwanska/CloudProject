@@ -38,6 +38,10 @@ module "backend-service"{
        {
             name = "CONNECTION_STRING"
             value = "postgresql://${aws_db_instance.chmurki_rds.endpoint}/chmurki_db?user=kamila1&password=jamniczek"
+       },
+       { 
+            name = "MESSAGE_TO_LAMBDA_QUEUE_URL"
+            value = "${aws_sqs_queue.terraform-backend-lambda-queue.url}"
        }
     ]
     cluster_id = aws_ecs_cluster.chmurki_cluster.id
@@ -45,4 +49,12 @@ module "backend-service"{
     security_group = aws_security_group.chmurki_sg.id
     vpc_id = aws_vpc.chmurki_vpc.id
     health_check_path = "/health"
+}
+
+output "load_balancer_dns_frontend" {
+    value = module.frontend-service.load_balancer_dns
+}
+
+output "load_balancer_dns_backend" {
+    value = module.backend-service.load_balancer_dns
 }

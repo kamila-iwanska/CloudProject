@@ -4,6 +4,7 @@ import { logger } from 'hono/logger'
 import { extractUser } from './cognito.js'
 import {addMessageToDB, getUsersFromDB, getMessagesFromDB} from './database.js'
 import { cors } from 'hono/cors'
+import { sendMessagesToQueue } from './queue.js'
 
 const app = new Hono()
 
@@ -44,6 +45,8 @@ app.post('/messages', async (c) => {
     const body = await c.req.json()
     const { message, receiver } = body
     const result = await addMessageToDB(message, user.sub, receiver)
+    await sendMessagesToQueue(process.env.MESSAGE_TO_LAMBDA_QUEUE_URL, {message, sender: user.sub, receiver})
+
     return c.json( result )
   }
   catch {

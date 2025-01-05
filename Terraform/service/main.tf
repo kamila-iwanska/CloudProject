@@ -89,5 +89,5 @@ resource "aws_lb_listener" "lb_listener" {
 }
 
 output "load_balancer_dns" {
-  value = aws_lb.load_balancer.dns_name
+  value = "http://${aws_lb.load_balancer.dns_name}"
 }
