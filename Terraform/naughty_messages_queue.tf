@@ -26,7 +26,7 @@ resource "aws_lambda_function" "terraform-backend-lambda" {
     function_name = "terraform-backend-lambda"
     role = data.aws_iam_role.lambda_role.arn
     handler = "lambda.handler"
-    source_code_hash = data.archive_file.lambda.output_base64sha256
+    source_code_hash = data.archive_file.lambda.output_base64sha256 
     runtime = "nodejs18.x"
     timeout = 10
     reserved_concurrent_executions = 2
@@ -41,5 +41,5 @@ resource "aws_lambda_function" "terraform-backend-lambda" {
 resource "aws_lambda_event_source_mapping" "example" {
   event_source_arn = aws_sqs_queue.terraform-backend-lambda-queue.arn
   function_name    = aws_lambda_function.terraform-backend-lambda.arn
-  batch_size       = 1
+  batch_size       = 1 
 }

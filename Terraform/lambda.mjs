@@ -1,7 +1,5 @@
 import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
 
-
-
 export async function handler(event) {
   console.log("Received event:", JSON.stringify(event, null, 2));
   const body = JSON.parse(event.Records[0].body);

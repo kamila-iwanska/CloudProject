@@ -43,6 +43,6 @@ export async function getMessagesFromDB(user, other) {
 }
 
 export async function getAdminFromDB(){
-  const result = await client. query ( "SELECT sub FROM myusers WHERE username = 'admin'")
+  const result = await client.query( "SELECT sub FROM myusers WHERE username = 'admin'")
   return result.rows[0].sub
 }

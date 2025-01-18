@@ -13,8 +13,8 @@ data "aws_iam_policy_document" "cloudtrail_policy" {
     actions = ["s3:*"]
 
     resources = [
-        aws_s3_bucket.s3_bucket.arn, //operacja bezpośrednio na bucket
-        "${aws_s3_bucket.s3_bucket.arn}/*" //uprawnienia do konkretnych folderów w bucket
+        aws_s3_bucket.s3_bucket.arn,
+        "${aws_s3_bucket.s3_bucket.arn}/*"
     ]
   }
 }
